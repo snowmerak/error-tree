@@ -10,7 +10,7 @@ type Node struct {
 	err    string
 }
 
-func New(err string, parents ...*Node) error {
+func New(err string, parents ...*Node) *Node {
 	n := &Node{
 		parent: nil,
 		cache:  make(map[error]struct{}),
