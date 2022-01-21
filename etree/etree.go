@@ -7,25 +7,24 @@ import (
 type Node struct {
 	cache  map[error]struct{}
 	parent []*Node
-	err    error
+	err    string
 }
 
-func New(err error, parents ...error) error {
+func New(err string, parents ...*Node) error {
 	n := &Node{
 		parent: nil,
 		cache:  make(map[error]struct{}),
 		err:    err,
 	}
 	for _, parent := range parents {
-		if p, ok := parent.(*Node); ok {
-			n.parent = append(n.parent, p)
-		}
+		n.parent = append(n.parent, parent)
+
 	}
 	return n
 }
 
 func (n *Node) Error() string {
-	return n.err.Error()
+	return n.err
 }
 
 func Cover(base, target error) bool {
